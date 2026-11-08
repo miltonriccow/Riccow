@@ -19,6 +19,7 @@ public class MainActivity extends Activity {
     private static final int INK = Color.rgb(36, 33, 61), PURPLE = Color.rgb(112, 88, 201), MUTED = Color.rgb(137, 135, 154);
     private SharedPreferences preferences;
     private LinearLayout root;
+    private boolean viewingAchievements;
     private final Random random = new Random();
     // Links are deliberately curated: a correct answer offers two meaningful next steps.
     private final int[][] lessonLinks = {{3, 4}, {2, 4}, {4, 1}, {4, 0}, {3, 2}};
@@ -51,6 +52,7 @@ public class MainActivity extends Activity {
     }
     private int count() { int n = 0; for (int i=0; i<titles.length; i++) if (preferences.getBoolean("lesson_"+i, false)) n++; return n; }
     private void showHome() {
+        viewingAchievements = false;
         ScrollView scroll = new ScrollView(this); scroll.setFillViewport(true); scroll.setBackgroundColor(Color.rgb(248,248,251));
         root = column(); root.setPadding(dp(20), dp(26), dp(20), dp(28)); scroll.addView(root); setContentView(scroll);
         TextView logo = text("▥  contaclara", 22, PURPLE, true); add(root, logo, 0);
@@ -94,6 +96,7 @@ public class MainActivity extends Activity {
         TextView footer = text("Feito para quem acredita no poder de aprender. ✦", 11, MUTED, false); footer.setGravity(Gravity.CENTER); add(root, footer, 28);
     }
     private void showAchievements() {
+        viewingAchievements = true;
         int completed = count();
         int solved = preferences.getInt("practice_solved", 0);
         int points = completed * 10 + preferences.getInt("practice_points", 0);
@@ -121,7 +124,7 @@ public class MainActivity extends Activity {
             add(badge, text(Math.min(current[i], goals[i]) + " / " + goals[i], 12, PURPLE, true), 10);
         }
     }
-    @Override public void onBackPressed() { showHome(); }
+    @Override public void onBackPressed() { if (viewingAchievements) showHome(); else super.onBackPressed(); }
     private int firstIncomplete() { for (int i=0; i<titles.length; i++) if (!preferences.getBoolean("lesson_"+i, false)) return i; return 0; }
 
     private void showPractice() { showPractice(random.nextInt(practiceNames.length)); }
