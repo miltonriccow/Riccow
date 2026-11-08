@@ -65,6 +65,8 @@ public class MainActivity extends Activity {
         LinearLayout stats = card(Color.WHITE, 18); add(root, stats, 16);
         add(stats, text("✦  " + (count()*10 + preferences.getInt("practice_points", 0)) + " pontos     ✓  " + count() + " lições     ◷  " + (count()*100/titles.length) + "%", 14, INK, true), 0);
         add(stats, text("Cada passo conta. Continue aprendendo!", 12, MUTED, false), 8);
+        Button achievements = button("✦  Ver minhas conquistas  ↗", false); add(stats, achievements, 14);
+        achievements.setOnClickListener(v -> showAchievements());
         add(root, text("CONHECIMENTO QUE TRANSFORMA", 10, PURPLE, true), 30);
         add(root, text("Suas trilhas de aprendizado ✳", 20, INK, true), 7);
         add(root, text("Escolha por onde começar. Ao concluir, descubra dois caminhos relacionados.", 12, MUTED, false), 5);
@@ -91,6 +93,35 @@ public class MainActivity extends Activity {
         Button challengeButton = button("Aceitar desafio  ↗", false); add(challenge, challengeButton, 14); challengeButton.setOnClickListener(v -> openLesson(firstIncomplete()));
         TextView footer = text("Feito para quem acredita no poder de aprender. ✦", 11, MUTED, false); footer.setGravity(Gravity.CENTER); add(root, footer, 28);
     }
+    private void showAchievements() {
+        int completed = count();
+        int solved = preferences.getInt("practice_solved", 0);
+        int points = completed * 10 + preferences.getInt("practice_points", 0);
+        String[] names = {"Primeiro passo", "Trilhas exploradas", "Primeiro desafio", "Prática constante", "Cem pontos"};
+        String[] descriptions = {"Conclua sua primeira lição.", "Conclua as cinco lições disponíveis.", "Acerte seu primeiro exercício de prática contínua.", "Acerte 10 exercícios de prática contínua.", "Acumule 100 pontos entre lições e exercícios."};
+        int[] current = {completed, completed, solved, solved, points};
+        int[] goals = {1, 5, 1, 10, 100};
+        int earned = 0;
+        for (int i = 0; i < goals.length; i++) if (current[i] >= goals[i]) earned++;
+        ScrollView scroll = new ScrollView(this); scroll.setFillViewport(true); scroll.setBackgroundColor(Color.rgb(248,248,251));
+        LinearLayout page = column(); page.setPadding(dp(20), dp(26), dp(20), dp(28)); scroll.addView(page); setContentView(scroll);
+        Button back = button("←  Voltar ao início", false); add(page, back, 0); back.setOnClickListener(v -> showHome());
+        add(page, text("SUA JORNADA", 10, PURPLE, true), 24);
+        add(page, text("Minhas conquistas ✦", 25, INK, true), 7);
+        add(page, text("Cada conquista celebra um passo no seu aprendizado.", 13, MUTED, false), 6);
+        LinearLayout summary = card(Color.rgb(238,234,250), 20); add(page, summary, 20);
+        add(summary, text("✦  " + earned + " de " + goals.length + " conquistas", 18, INK, true), 0);
+        add(summary, text("Seu progresso fica salvo neste dispositivo.", 12, MUTED, false), 6);
+        for (int i = 0; i < names.length; i++) {
+            boolean unlocked = current[i] >= goals[i];
+            LinearLayout badge = card(Color.WHITE, 18); add(page, badge, 12);
+            add(badge, text((unlocked ? "✦  CONQUISTADA" : "◇  EM ANDAMENTO"), 10, unlocked ? PURPLE : MUTED, true), 0);
+            add(badge, text(names[i], 17, INK, true), 8);
+            add(badge, text(descriptions[i], 12, MUTED, false), 5);
+            add(badge, text(Math.min(current[i], goals[i]) + " / " + goals[i], 12, PURPLE, true), 10);
+        }
+    }
+    @Override public void onBackPressed() { showHome(); }
     private int firstIncomplete() { for (int i=0; i<titles.length; i++) if (!preferences.getBoolean("lesson_"+i, false)) return i; return 0; }
 
     private void showPractice() { showPractice(random.nextInt(practiceNames.length)); }

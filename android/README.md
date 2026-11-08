@@ -16,3 +16,5 @@ A seção **Prática contínua** gera exercícios com números variados em seis 
 ## Teia de conhecimento
 
 Depois de acertar a pergunta de uma lição, o estudante pode escolher entre duas lições relacionadas ou seguir para a prática. Depois de cada acerto na prática, há dois temas relacionados para continuar, gerando outro exercício. Os caminhos são definidos previamente e os exercícios variam conforme modelos e valores; não há geração de lições novas por IA. Todas as lições também continuam acessíveis diretamente, e o progresso existente permanece no dispositivo.
+
+A tela **Minhas conquistas** mostra cinco marcos, com estado e progresso calculados a partir das lições concluídas, exercícios resolvidos e pontos armazenados localmente. As conquistas não são públicas nem sincronizadas entre dispositivos.
