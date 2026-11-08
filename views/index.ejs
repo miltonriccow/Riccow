@@ -1,26 +1,32 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Haikus for Mona</title>
-    <link href="/css/main.css" rel="stylesheet" type="text/css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="og:title" content="Haikus for Mona">
-    <meta property="og:description" content="Some of the best haikus you'll ever read about our rescue dog June">
-    <meta property="og:image" content="/images/sunlight.jpg">
-  </head>
-  <body>
-    <h1>Haikus for Mona</h1>
-    <div>
-      <% for(var i=0; i < haikus.length; i++) { %>
-        <img
-          class="mona-images"
-          src="images/<%= haikus[i].image %>" />
-        <div 
-          class="haiku-containers">
-          <p 
-            class="haikus"
-          ><%- haikus[i].text %></p>
-        </div>
-      <% } %>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Conta Clara — Aprender faz a diferença</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="#inicio"><span class="brand-icon">▥</span><span>conta<span class="brand-light">clara</span><small>APRENDER FAZ A DIFERENÇA</small></span></a>
+    <div class="nav-label">MENU PRINCIPAL</div>
+    <nav><a class="nav-item active" href="#inicio"><span>◫</span> Visão geral</a><a class="nav-item" href="#trilhas"><span>▤</span> Trilhas de estudo</a><a class="nav-item" href="#desafio"><span>◇</span> Desafio rápido</a><a class="nav-item" href="#progresso"><span>◷</span> Meu progresso</a></nav>
+    <div class="sidebar-bottom"><div class="side-sparkle">✦</div><strong>Um passo de cada vez.</strong><p>Grandes conquistas começam com pequenos aprendizados.</p><a href="#trilhas">Explorar trilhas <span>↗</span></a></div>
+    <div class="profile"><div class="avatar">E</div><div><strong>Estudante</strong><small>Minha jornada</small></div><span class="profile-dots">···</span></div>
+  </aside>
+  <main id="inicio" class="main">
+    <header class="topbar"><div><span class="eyebrow">SEU ESPAÇO DE APRENDIZAGEM</span><h1>Olá, estudante <span>✳</span></h1><p>Que bom ter você por aqui. Vamos aprender algo novo?</p></div><div class="top-actions"><div class="points"><span>✦</span><strong id="header-points">0</strong> pontos</div><div class="top-avatar">E</div></div></header>
+    <div class="content">
+      <section class="hero"><div class="hero-copy"><div class="hero-tag"><span>✦</span> APRENDA NO SEU RITMO</div><h2>Seu futuro financeiro<br>começa <em>agora.</em></h2><p>Descomplique a contabilidade e as finanças com pequenas lições e grandes descobertas.</p><a class="primary-button" href="#trilhas">Começar a aprender <span>↗</span></a></div><div class="hero-art" aria-hidden="true"><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div><div class="art-card back-card"><span>✦</span><div class="chart-bars"><i></i><i></i><i></i><i></i></div></div><div class="art-card front-card"><div class="coin">$</div><div class="art-lines"><i></i><i></i></div><div class="art-check">✓</div></div><div class="art-star star-one">✳</div><div class="art-star star-two">✦</div><div class="art-dot"></div></div><div class="hero-index">01 / 03</div></section>
+      <section id="progresso" class="stats"><div class="stat"><span class="stat-icon lavender">✦</span><div><strong id="points">0</strong><small>Pontos conquistados</small></div></div><div class="stat"><span class="stat-icon peach">✓</span><div><strong id="completed">0</strong><small>Lições concluídas</small></div></div><div class="stat"><span class="stat-icon blue">◷</span><div><strong id="progress">0%</strong><small>Progresso nas trilhas</small></div></div><div class="stat-message"><span>✧</span><p>Cada passo conta.<br><strong>Continue aprendendo!</strong></p></div></section>
+      <div class="section-heading" id="trilhas"><div><div class="overline">CONHECIMENTO QUE TRANSFORMA</div><h2>Suas trilhas de aprendizado <span>✳</span></h2><p>Escolha por onde começar e evolua no seu tempo.</p></div><span class="all-link">3 trilhas para explorar <span>↗</span></span></div>
+      <section class="tracks" id="track-list"></section>
+      <section class="bottom-grid" id="desafio"><div class="challenge"><div class="challenge-icon">✦</div><div><div class="overline">COLOQUE EM PRÁTICA</div><h3>Um pequeno desafio para hoje?</h3><p>Teste o que você sabe e ganhe pontos pelo caminho.</p></div><button id="challenge-button" class="outline-button">Aceitar desafio <span>↗</span></button></div><div class="quote"><span>“</span><p>Aprender é o primeiro passo para transformar o seu futuro.</p><small>UM LEMBRETE PARA VOCÊ ✦</small></div></section>
+      <footer>Feito para quem acredita no poder de aprender. <span>✦</span> <strong>contaclara</strong></footer>
     </div>
-</html>
+  </main>
+</div>
+<dialog id="lesson-dialog"><div class="dialog-content"><button class="close" aria-label="Fechar">×</button><div id="lesson-content"></div></div></dialog>
+<script src="/js/app.js"></script>
+</body></html>
